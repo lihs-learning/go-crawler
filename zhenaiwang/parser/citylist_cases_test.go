@@ -2,7 +2,7 @@ package parser
 
 const CityListSize = 470
 
-var testCases = []struct {
+var cityListTestCases = []struct {
 	CityName string
 	CityURL  string
 }{

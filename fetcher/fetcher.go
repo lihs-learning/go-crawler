@@ -15,11 +15,22 @@ import (
 
 func Fetch(url string) (utf8Content []byte, err error) {
 	log.Println("fetching url: ", url)
-	resp, err := http.Get(url)
+	client := http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	req.Header.Set("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36")
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer func(resp *http.Response) {
+		err := resp.Body.Close()
+		if err != nil {
+			log.Printf("resp.Body.Close err: %s, when fetching %s", err, url)
+		}
+	}(resp)
 
 	if resp.StatusCode != http.StatusOK {
 		err = fmt.Errorf("http get %s respond wrong status code: %d",
