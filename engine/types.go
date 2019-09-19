@@ -1,7 +1,7 @@
 package engine
 
 type Request struct {
-	Url        string
+	URL        string
 	ParserFunc func(utf8Content []byte) (parseResult ParseResult)
 }
 

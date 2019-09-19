@@ -20,7 +20,7 @@ func ParseCity(utf8Content []byte) (result engine.ParseResult) {
 		result.Items = append(result.Items, userName)
 		result.Requests = append(result.Requests,
 			engine.Request{
-				Url:        string(match[groupNamesMap["link"]]),
+				URL: string(match[groupNamesMap["link"]]),
 				ParserFunc: func(utf8Content []byte) (parseResult engine.ParseResult) {
 					return ParseProfile(utf8Content, ProfileParserExtraInfo{
 						Name: userName,

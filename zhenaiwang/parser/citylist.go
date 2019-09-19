@@ -21,7 +21,7 @@ func ParseCityList(utf8Content []byte) (result engine.ParseResult) {
 			string(match[groupNamesMap["name"]]))
 		result.Requests = append(result.Requests,
 			engine.Request{
-				Url:        string(match[groupNamesMap["link"]]),
+				URL:        string(match[groupNamesMap["link"]]),
 				ParserFunc: ParseCity,
 			})
 	}

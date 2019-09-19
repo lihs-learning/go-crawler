@@ -23,7 +23,7 @@ func TestParseCity(t *testing.T) {
 
 	for i, expectedUserResult := range cityTestCases {
 		actualCityName := actualUserResults.Items[i]
-		actualCityURL := actualUserResults.Requests[i].Url
+		actualCityURL := actualUserResults.Requests[i].URL
 		if expectedUserResult.Nick != actualCityName {
 			t.Errorf("city name expected: %s, actual: %s",
 				expectedUserResult.Nick, actualCityName)

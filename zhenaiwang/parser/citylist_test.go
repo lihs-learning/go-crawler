@@ -21,7 +21,7 @@ func TestParseCityList(t *testing.T) {
 
 	for i, expectedCityResult := range cityListTestCases {
 		actualCityName := actualCityResults.Items[i]
-		actualCityURL := actualCityResults.Requests[i].Url
+		actualCityURL := actualCityResults.Requests[i].URL
 		if expectedCityResult.CityName != actualCityName {
 			t.Errorf("city name expected: %s, actual: %s",
 				expectedCityResult.CityName, actualCityName)
