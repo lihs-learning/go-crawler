@@ -6,9 +6,8 @@ import (
 	"github.com/lihs-learning/go-crawler/engine"
 )
 
-const cityRe = `<a [.\s]*href="(?P<link>https?://www\.zhenai\.com/zhenghun/[0-9a-zA-Z]+)"[^>]*>(?P<name>[^<]+)</a>`
-
-var cityRegexp = regexp.MustCompile(cityRe)
+var cityRegexp = regexp.MustCompile(
+`<a [.\s]*href="(?P<link>https?://www\.zhenai\.com/zhenghun/[0-9a-zA-Z]+)"[^>]*>(?P<name>[^<]+)</a>`)
 
 func ParseCityList(utf8Content []byte) (result engine.ParseResult) {
 	groupNamesMap := make(map[string]int)

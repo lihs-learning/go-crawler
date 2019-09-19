@@ -8,19 +8,17 @@ import (
 )
 
 var profileAgeRe = regexp.MustCompile(
-	`<td><span class="label">年龄：</span>(\d+)岁</td>`)
+	`<div class="m-btn purple"[^>]*>(\d+)岁</div>`)
 var profileHeightRe = regexp.MustCompile(
-	`<td><span class="label">身高：</span>(\d+)CM</td>`)
+	`<div class="m-btn purple"[^>]*>(\d+)[cC][mM]</div>`)
 var profileWeightRe = regexp.MustCompile(
-	`<td><span class="label">体重：</span><span field="">(\d+)KG</span></td>`)
+	`<div class="m-btn purple"[^>]*>(\d+)[kK][gG]</div>`)
 var profileIncomeRe = regexp.MustCompile(
-	`<td><span class="label">月收入：</span>([^<]+)</td>`)
-var profileGenderRe = regexp.MustCompile(
-	`<td><span class="label">性别：</span><span field="">([^<]+)</span></td>`)
+	`<div class="m-btn purple"[^>]*>月收入[:：]([^<]+)</div>`)
 var profileMarriageRe = regexp.MustCompile(
-	`<td><span class="label">婚况：</span>([^<]+)</td>`)
+	`<div class="m-btn purple"[^>]*>(未婚|离异|丧偶)</div>`)
 var profileEducationRe = regexp.MustCompile(
-	`<td><span class="label">学历：</span>([^<]+)</td>`)
+	`<div class="m-btn purple"[^>]*>(高中及以下|中专|大专|大学本科|硕士|博士)</div>`)
 var profileOccupationRe = regexp.MustCompile(
 	`<td><span class="label">职业：</span><span field="">([^<]+)</span></td>`)
 var profileResidenceRe = regexp.MustCompile(
@@ -37,8 +35,16 @@ var profileCarRe = regexp.MustCompile(
 //var profileIdUrlRe = regexp.MustCompile(
 //	`http://album.zhenai.com/u/([\d]+)`)
 
-func ParseProfile(utf8Content []byte) (result engine.ParseResult) {
-	profile := model.Profile{}
+type ProfileParserExtraInfo struct {
+	Name string
+	Gender string
+}
+
+func ParseProfile(utf8Content []byte, extraInfo ProfileParserExtraInfo) (result engine.ParseResult) {
+	profile := model.Profile{
+		Name: extraInfo.Name,
+		Gender: extraInfo.Gender,
+	}
 
 	age, err := strconv.Atoi(
 		extractString(utf8Content, profileAgeRe))
@@ -58,7 +64,6 @@ func ParseProfile(utf8Content []byte) (result engine.ParseResult) {
 		profile.Weight = weight
 	}
 
-	profile.Gender = extractString(utf8Content, profileGenderRe)
 	profile.Income = extractString(utf8Content, profileIncomeRe)
 	profile.Marriage = extractString(utf8Content, profileMarriageRe)
 	profile.Education = extractString(utf8Content, profileEducationRe)

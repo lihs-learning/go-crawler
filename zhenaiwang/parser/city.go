@@ -5,9 +5,8 @@ import (
 	"regexp"
 )
 
-const profileRe = `<a .*?href="(?P<link>https?://album\.zhenai\.com/u/\d+)"[^>]*>\s*(?P<name>[^\s<]+(?:\s+[^\s<]+)*)\s*</a>`
-
-var userRegexp = regexp.MustCompile(profileRe)
+var userRegexp = regexp.MustCompile(
+`<a .*?href="(?P<link>https?://album\.zhenai\.com/u/\d+)"[^>]*>\s*(?P<name>[^\s<]+(?:\s+[^\s<]+)*)\s*</a>`)
 
 func ParseCity(utf8Content []byte) (result engine.ParseResult) {
 	groupNamesMap := make(map[string]int)
@@ -17,12 +16,17 @@ func ParseCity(utf8Content []byte) (result engine.ParseResult) {
 	}
 	allUsers := userRegexp.FindAllSubmatch(utf8Content, -1)
 	for _, match := range allUsers {
-		result.Items = append(result.Items,
-			string(match[groupNamesMap["name"]]))
+		userName := string(match[groupNamesMap["name"]])
+		result.Items = append(result.Items, userName)
 		result.Requests = append(result.Requests,
 			engine.Request{
 				Url:        string(match[groupNamesMap["link"]]),
-				ParserFunc: engine.NilParser,
+				ParserFunc: func(utf8Content []byte) (parseResult engine.ParseResult) {
+					return ParseProfile(utf8Content, ProfileParserExtraInfo{
+						Name: userName,
+						Gender: userGender,
+					})
+				},
 			})
 	}
 

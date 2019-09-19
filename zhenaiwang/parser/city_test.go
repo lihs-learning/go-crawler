@@ -36,7 +36,7 @@ func TestParseCity(t *testing.T) {
 }
 
 func TestProfileRe(t *testing.T) {
-	profileRegexp := regexp.MustCompile(profileRe)
+	profileRegexp := regexp.MustCompile(profileReofileRe)
 	for _, test := range profileRegExpTestCases {
 		groupNamesMap := make(map[string]int)
 
