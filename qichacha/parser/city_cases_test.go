@@ -1,8 +1,8 @@
 package parser
 
-const CompanySize = 10
+const EnterprisesSize = 10
 
-var companyTests = []struct {
+var enterprisesTests = []struct {
 	Name string
 	URL  string
 }{

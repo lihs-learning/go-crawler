@@ -1,6 +1,6 @@
 package parser
 
-const ProvinceListSize = 31
+const ProvincesSize = 31
 
 var provinceTests = []struct {
 	Name string

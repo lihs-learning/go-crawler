@@ -1,8 +1,8 @@
 package parser
 
-const CityListSize = 16
+const CitiesSize = 16
 
-var cityTests = []struct {
+var citiesTests = []struct {
 	Name string
 	URL  string
 }{

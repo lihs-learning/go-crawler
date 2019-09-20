@@ -14,9 +14,9 @@ func TestParseCity(t *testing.T) {
 
 	actualParseCityResult := ParseCity(cityContent)
 
-	if len(actualParseCityResult.Requests) != CompanySize {
+	if len(actualParseCityResult.Items) != EnterprisesSize {
 		t.Fatalf("ParseCity result should have %d requests; but had %d",
-			ProvinceListSize, len(actualParseCityResult.Requests))
+			EnterprisesSize, len(actualParseCityResult.Items))
 	}
 
 	//for i, item := range actualParseCityResult.Items {
@@ -24,17 +24,17 @@ func TestParseCity(t *testing.T) {
 	//	fmt.Println(actualParseCityResult.Requests[i].URL)
 	//}
 
-	for i, exceptedCompany := range companyTests {
-		actualCompanyName := actualParseCityResult.Items[i]
-		actualCompanyURL := actualParseCityResult.Requests[i].URL
+	for i, exceptedEnterprise := range enterprisesTests {
+		actualEnterpriseName := actualParseCityResult.Items[i]
+		actualEnterPriseURL := actualParseCityResult.Requests[i].URL
 
-		if exceptedCompany.Name != actualCompanyName {
+		if exceptedEnterprise.Name != actualEnterpriseName {
 			t.Errorf("company name expected: \"%s\", actual: \"%s\"",
-				exceptedCompany.Name, actualCompanyName)
+				exceptedEnterprise.Name, actualEnterpriseName)
 		}
-		if exceptedCompany.URL != actualCompanyURL {
+		if exceptedEnterprise.URL != actualEnterPriseURL {
 			t.Errorf("company url expected: \"%s\", actual: \"%s\"",
-				exceptedCompany.URL, actualCompanyURL)
+				exceptedEnterprise.URL, actualEnterPriseURL)
 		}
 	}
 
