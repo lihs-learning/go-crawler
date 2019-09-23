@@ -19,7 +19,7 @@ func ParseCityList(utf8content []byte) (result engine.ParseResult) {
 			engine.Request{
 				URL: fmt.Sprintf("%s/gongsi_area.html?prov=%s&city=%s&p=1",
 					qichacha.RootUrl, city[1], city[2]),
-				ParserFunc: nil,
+				ParserFunc: ParseCity,
 			})
 	}
 	return
