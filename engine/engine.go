@@ -26,7 +26,7 @@ func Run(seeds ...Request) {
 		parseResult := request.ParserFunc(body)
 		requests = append(requests, parseResult.Requests...)
 		printItems(parseResult.Items)
-		time.Sleep(time.Second)
+		time.Sleep(300 * time.Millisecond)
 	}
 }
 

@@ -8,17 +8,28 @@ import (
 )
 
 var cityRegexp = regexp.MustCompile(
-	`<a .*?href="(?P<uri>/firm_[a-f0-9]*\.html)"[^>]*>(?P<company>.*?)</a>`)
+	`<a .*?href="(?P<uri>/firm_(?P<id>[a-f0-9]*)\.html)"[^>]*>(?P<company>.*?)</a>`)
+
+type EnterpriseBrief struct {
+	ID   string
+	Name string
+}
 
 func ParseCity(utf8content []byte) (result engine.ParseResult) {
-	companyResult := cityRegexp.FindAllSubmatch(utf8content, -1)
+	enterprisesResult := cityRegexp.FindAllSubmatch(utf8content, -1)
 
-	for _, company := range companyResult {
+	for _, enterprise := range enterprisesResult {
+		enterpriseBrief := EnterpriseBrief{
+			ID:   string(enterprise[2]),
+			Name: string(filterChinese(enterprise[3])),
+		}
 		result.Items = append(result.Items,
-			string(filterChinese(company[2])))
+			enterpriseBrief.Name)
 		result.Requests = append(result.Requests, engine.Request{
-			URL:        fmt.Sprintf("%s%s", qichacha.RootUrl, string(company[1])),
-			ParserFunc: nil,
+			URL: fmt.Sprintf("%s%s", qichacha.RootUrl, string(enterprise[1])),
+			ParserFunc: func(utf8content []byte) (parseResult engine.ParseResult) {
+				return ParseEnterprise(utf8content, enterpriseBrief)
+			},
 		})
 	}
 
