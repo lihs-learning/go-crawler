@@ -2,10 +2,10 @@ package parser
 
 import (
 	"fmt"
+	"github.com/lihs-learning/go-crawler/sites/qichacha"
 	"regexp"
 
 	"github.com/lihs-learning/go-crawler/engine"
-	"github.com/lihs-learning/go-crawler/qichacha"
 )
 
 var provinceRegexp = regexp.MustCompile(

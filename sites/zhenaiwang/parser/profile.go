@@ -36,13 +36,13 @@ var profileCarRe = regexp.MustCompile(
 //	`http://album.zhenai.com/u/([\d]+)`)
 
 type ProfileParserExtraInfo struct {
-	Name string
+	Name   string
 	Gender string
 }
 
 func ParseProfile(utf8Content []byte, extraInfo ProfileParserExtraInfo) (result engine.ParseResult) {
 	profile := model.Profile{
-		Name: extraInfo.Name,
+		Name:   extraInfo.Name,
 		Gender: extraInfo.Gender,
 	}
 

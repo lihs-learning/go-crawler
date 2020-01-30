@@ -4,7 +4,7 @@ import (
 	"github.com/lihs-learning/go-crawler/engine"
 	"github.com/lihs-learning/go-crawler/scheduler"
 
-	"github.com/lihs-learning/go-crawler/xcar/parser"
+	"github.com/lihs-learning/go-crawler/sites/xcar/parser"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package parser
 import "github.com/lihs-learning/go-crawler/model"
 
 var EnterpriseBriefDemo = EnterpriseBrief{
-	ID: "14b3e5d75624217e449fe50a8f3d3aa0",
+	ID:   "14b3e5d75624217e449fe50a8f3d3aa0",
 	Name: "合肥广桥教育信息有限公司",
 }
 

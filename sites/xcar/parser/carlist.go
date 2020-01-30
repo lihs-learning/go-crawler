@@ -2,7 +2,7 @@ package parser
 
 import (
 	"fmt"
-	"github.com/lihs-learning/go-crawler/xcar"
+	xcar2 "github.com/lihs-learning/go-crawler/sites/xcar"
 	"regexp"
 
 	"github.com/lihs-learning/go-crawler/engine"
@@ -15,7 +15,7 @@ func ParseCarList(utf8Contents []byte) (result engine.ParseResult) {
 	modelMatches := carModelRe.FindAllSubmatch(utf8Contents, -1)
 	for _, model := range modelMatches {
 		result.Requests = append(result.Requests, engine.Request{
-			URL: fmt.Sprintf("%s%s", xcar.RootUrl, model[1]),
+			URL:        fmt.Sprintf("%s%s", xcar2.RootUrl, model[1]),
 			ParserFunc: ParseCarModel,
 		})
 	}
@@ -24,7 +24,7 @@ func ParseCarList(utf8Contents []byte) (result engine.ParseResult) {
 	for _, list := range listMatches {
 		result.Requests = append(
 			result.Requests, engine.Request{
-				URL: fmt.Sprintf("%s%s", xcar.RootUrl, list[1]),
+				URL:        fmt.Sprintf("%s%s", xcar2.RootUrl, list[1]),
 				ParserFunc: ParseCarList,
 			})
 	}

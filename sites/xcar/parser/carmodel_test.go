@@ -31,4 +31,3 @@ func TestParseCarModel(t *testing.T) {
 		}
 	}
 }
-

@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-    "github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp"
 
 	"github.com/lihs-learning/go-crawler/model"
 )
@@ -29,4 +29,3 @@ func TestParseEnterprise(t *testing.T) {
 		t.Errorf("enterprise mismatch (-excepted +actual):\n%s", diff)
 	}
 }
-
