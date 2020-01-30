@@ -14,7 +14,6 @@ import (
 	"testing"
 )
 
-
 func determineEncoding(bufReader *bufio.Reader) encoding.Encoding {
 	bytes, err := bufReader.Peek(1024)
 	if err != nil {
