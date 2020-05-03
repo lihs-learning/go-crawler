@@ -38,7 +38,7 @@ func TestParseCarDetail(t *testing.T) {
 		panic(err)
 	}
 
-	actualParseCarDetailResult := ParseCarDetail(contents)
+	actualParseCarDetailResult := ParseCarDetail(contents, "https://newcar.xcar.com.cn/m49989/")
 
 	if len(actualParseCarDetailResult.Items) != 1 {
 		t.Errorf("car detail result shoud have len=1 but got len=%d",
@@ -61,6 +61,7 @@ func TestParseCarDetail(t *testing.T) {
 		Displacement: 2.0,
 		MaxSpeed:     205,
 		Acceleration: 8.5,
+		SourceURL:    "https://newcar.xcar.com.cn/m49989/",
 	}
 
 	if diff := cmp.Diff(exceptedCar, actualCar); diff != "" {

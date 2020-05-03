@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/go-redis/redis/v7"
+
 	"github.com/lihs-learning/go-crawler/fetcher"
+	"github.com/lihs-learning/go-crawler/redisc"
 )
 
 func worker(request Request) (parseResult ParseResult, err error) {
@@ -22,4 +25,25 @@ func printItems(items []interface{}) {
 	for _, item := range items {
 		log.Printf("Got item: %v", item)
 	}
+}
+
+func isDuplicate(url string) bool {
+	cmd := redis.NewStringCmd("CF.EXISTS", "crawler", url)
+	err := redisc.DB.Process(cmd)
+	if err != nil {
+		log.Println(err)
+	}
+	result, err := cmd.Result()
+	if err != nil {
+		fmt.Println(err)
+	}
+	duplicated := result == "1"
+	if !duplicated {
+		cmd := redis.NewStringCmd("CF.ADD", "crawler", url)
+		err := redisc.DB.Process(cmd)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+	return duplicated
 }

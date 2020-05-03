@@ -14,7 +14,6 @@ import (
 )
 
 func Fetch(url string) (utf8Content []byte, err error) {
-	log.Println("fetching url: ", url)
 	client := http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {

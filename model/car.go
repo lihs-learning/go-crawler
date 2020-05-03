@@ -11,4 +11,5 @@ type Car struct {
 	Displacement float64
 	MaxSpeed     float64
 	Acceleration float64
+	SourceURL    string
 }

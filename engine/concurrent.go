@@ -26,6 +26,9 @@ func (e *ConcurrentEngine) Run(seeds ...Request) {
 	}
 
 	for _, seed := range seeds {
+		if isDuplicate(seed.URL) {
+			continue
+		}
 		e.Scheduler.Submit(seed)
 	}
 
@@ -34,6 +37,9 @@ func (e *ConcurrentEngine) Run(seeds ...Request) {
 		printItems(result.Items)
 
 		for _, request := range result.Requests {
+			if isDuplicate(request.URL) {
+				continue
+			}
 			e.Scheduler.Submit(request)
 		}
 	}
