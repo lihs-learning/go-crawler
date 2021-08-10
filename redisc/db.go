@@ -11,7 +11,7 @@ var DB *redis.Client
 func init() {
 	DB = redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
-		Password: "", // no password set
+		Password: "Redis12345679#", // no password set
 		DB:       0,  // use default DB
 	})
 
