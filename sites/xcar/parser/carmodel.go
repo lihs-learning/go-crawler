@@ -3,6 +3,7 @@ package parser
 import (
 	"fmt"
 	xcar2 "github.com/lihs-learning/go-crawler/sites/xcar"
+	"log"
 	"regexp"
 
 	"github.com/lihs-learning/go-crawler/engine"
@@ -18,6 +19,7 @@ func ParseCarModel(utf8Contents []byte) (result engine.ParseResult) {
 			result.Requests, engine.Request{
 				URL: url,
 				ParserFunc: func(utf8Content []byte) (parseResult engine.ParseResult) {
+					log.Printf("parse car detail from %s", url)
 					return ParseCarDetail(utf8Content, url)
 				},
 			})

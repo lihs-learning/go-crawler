@@ -51,16 +51,16 @@ func TestParseCarDetail(t *testing.T) {
 	}
 
 	exceptedCar := model.Car{
-		Name:         "WEY VV72020款2.0T 豪华型",
-		Price:        169800,
-		ImageURL:     "https://img1.xcarimg.com/PicLib/s/s12277_300.jpg",
-		Size:         "4760×1931×1655mm",
-		Fuel:         7.7,
-		Transmission: "7挡双离合",
-		Engine:       "167kW(2.0L涡轮增压)",
-		Displacement: 2.0,
-		MaxSpeed:     205,
-		Acceleration: 8.5,
+		Name:         "零跑S012021款460 酷玩版",
+		Price:        130900,
+		ImageURL:     "https://img1.xcarimg.com/PicLib/s/s13985_300.jpg",
+		Size:         "4075×1760×1380mm",
+		Fuel:         0,
+		Transmission: "电动车单速变速箱",
+		Engine:       "125kW(电动机)",
+		Displacement: 0,
+		MaxSpeed:     135,
+		Acceleration: 0,
 		SourceURL:    "https://newcar.xcar.com.cn/m49989/",
 	}
 

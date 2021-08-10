@@ -6,9 +6,12 @@ import (
 )
 
 var exceptDetailURLs = []string{
-	"https://newcar.xcar.com.cn/m49989/",
-	"https://newcar.xcar.com.cn/m50314/",
-	"https://newcar.xcar.com.cn/m50315/",
+	"https://newcar.xcar.com.cn/m58992/",
+	"https://newcar.xcar.com.cn/m58993/",
+	"https://newcar.xcar.com.cn/m53617/",
+	"https://newcar.xcar.com.cn/m53693/",
+	"https://newcar.xcar.com.cn/m44730/",
+	"https://newcar.xcar.com.cn/m44732/",
 }
 
 func TestParseCarModel(t *testing.T) {
@@ -25,8 +28,11 @@ func TestParseCarModel(t *testing.T) {
 	}
 
 	for i := range actualParseCarModelResult.Requests {
-		if exceptDetailURLs[i] != actualParseCarModelResult.Requests[i].URL {
-			t.Errorf("model url expected: \"%s\", actual: \"%s\"",
+		if i >= len(exceptDetailURLs) {
+			t.Errorf("detail url expected: %T, actual: \"%s\"",
+				nil, actualParseCarModelResult.Requests[i].URL)
+		} else if exceptDetailURLs[i] != actualParseCarModelResult.Requests[i].URL {
+			t.Errorf("detail url expected: \"%s\", actual: \"%s\"",
 				exceptDetailURLs[i], actualParseCarModelResult.Requests[i].URL)
 		}
 	}
