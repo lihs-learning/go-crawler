@@ -20,7 +20,19 @@ func TestParseProfile(t *testing.T) {
 			len(actualParseProfileResults.Items), actualParseProfileResults.Items)
 	}
 
-	actualProfile := actualParseProfileResults.Items[0].(model.Profile)
+	if profileExtraInfo.ID != actualParseProfileResults.Items[0].ID {
+		t.Errorf("parse result err: except profile id \"%s\", but got \"%s\"",
+			profileExtraInfo.ID,
+			actualParseProfileResults.Items[0].ID)
+	}
+
+	if profileExtraInfo.URL != actualParseProfileResults.Items[0].URL {
+		t.Errorf("parse result err: except profile id \"%s\", but got \"%s\"",
+			profileExtraInfo.URL,
+			actualParseProfileResults.Items[0].URL)
+	}
+
+	actualProfile := actualParseProfileResults.Items[0].Payload.(model.Profile)
 
 	if diff := cmp.Diff(actualProfile, exceptProfile); diff != "" {
 		t.Errorf("profile mismatch (-excepted +actual):\n%s", diff)

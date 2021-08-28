@@ -17,8 +17,6 @@ func ParseCityList(utf8Content []byte) (result engine.ParseResult) {
 	}
 	allCities := cityRegexp.FindAllSubmatch(utf8Content, -1)
 	for _, match := range allCities {
-		result.Items = append(result.Items,
-			string(match[groupNamesMap["name"]]))
 		result.Requests = append(result.Requests,
 			engine.Request{
 				URL:        string(match[groupNamesMap["link"]]),

@@ -54,6 +54,12 @@ var businessScopeRe = regexp.MustCompile(
 // 股东信息
 // 主要人员
 
+type EnterpriseBrief struct {
+	ID   string
+	URL  string
+	Name string
+}
+
 func ParseEnterprise(utf8content []byte, enterpriseBrief EnterpriseBrief) (result engine.ParseResult) {
 	enterprise := model.Enterprise{
 		ID:   enterpriseBrief.ID,
@@ -89,7 +95,11 @@ func ParseEnterprise(utf8content []byte, enterpriseBrief EnterpriseBrief) (resul
 	enterprise.Address = extractString(utf8content, addressRe)
 	enterprise.BusinessScope = extractString(utf8content, businessScopeRe)
 
-	result.Items = append(result.Items, enterprise)
+	result.Items = append(result.Items, engine.Item{
+		ID:      enterpriseBrief.ID,
+		URL:     "",
+		Payload: enterprise,
+	})
 
 	return
 }

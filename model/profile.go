@@ -1,17 +1,17 @@
 package model
 
 type Profile struct {
-	Name          string
-	Gender        string
-	Age           int
-	Height        int
-	Weight        int
-	Income        string
-	Marriage      string
-	Education     string
-	Occupation    string
-	Residence     string
-	Constellation string
-	House         string
-	Car           string
+	Name          string `json:"name,omitempty"`
+	Gender        string `json:"gender,omitempty"`
+	Age           int    `json:"age,omitempty"`
+	Height        int    `json:"height,omitempty"`
+	Weight        int    `json:"weight,omitempty"`
+	Income        string `json:"income,omitempty"`
+	Marriage      string `json:"marriage,omitempty"`
+	Education     string `json:"education,omitempty"`
+	Occupation    string `json:"occupation,omitempty"`
+	Residence     string `json:"residence,omitempty"`
+	Constellation string `json:"constellation,omitempty"`
+	House         string `json:"house,omitempty"`
+	Car           string `json:"car,omitempty"`
 }

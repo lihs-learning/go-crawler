@@ -3,6 +3,8 @@ package parser
 import "github.com/lihs-learning/go-crawler/model"
 
 var profileExtraInfo = ProfileParserExtraInfo{
+	ID: "8020950579916830882",
+	URL: "http://localhost:8080/mock/album.zhenai.com/u/8020950579916830882",
 	Name:   "猖狂小丸子",
 }
 

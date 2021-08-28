@@ -23,7 +23,7 @@ func TestParseEnterprise(t *testing.T) {
 			1, len(actualParseEnterpriseResult.Items))
 	}
 
-	actualEnterprise := actualParseEnterpriseResult.Items[0].(model.Enterprise)
+	actualEnterprise := actualParseEnterpriseResult.Items[0].Payload.(model.Enterprise)
 
 	if diff := cmp.Diff(enterpriseTest, actualEnterprise); diff != "" {
 		t.Errorf("enterprise mismatch (-excepted +actual):\n%s", diff)

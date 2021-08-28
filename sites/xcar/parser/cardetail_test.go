@@ -38,14 +38,21 @@ func TestParseCarDetail(t *testing.T) {
 		panic(err)
 	}
 
-	actualParseCarDetailResult := ParseCarDetail(contents, "https://newcar.xcar.com.cn/m49989/")
+	expectedSrcURL := "https://newcar.xcar.com.cn/m49989/"
+	actualParseCarDetailResult := ParseCarDetail(contents, expectedSrcURL)
 
 	if len(actualParseCarDetailResult.Items) != 1 {
 		t.Errorf("car detail result shoud have len=1 but got len=%d",
 			len(actualParseCarDetailResult.Items))
 	}
 
-	actualCar, ok := actualParseCarDetailResult.Items[0].(model.Car)
+	if actualParseCarDetailResult.Items[0].URL != expectedSrcURL {
+		t.Errorf("expect car source url \"%s\", but got \"%s\"",
+			expectedSrcURL,
+			actualParseCarDetailResult.Items[0].URL)
+	}
+
+	actualCar, ok := actualParseCarDetailResult.Items[0].Payload.(model.Car)
 	if !ok {
 		t.Errorf("type err except result item type %T", model.Car{})
 	}
@@ -61,7 +68,6 @@ func TestParseCarDetail(t *testing.T) {
 		Displacement: 0,
 		MaxSpeed:     135,
 		Acceleration: 0,
-		SourceURL:    "https://newcar.xcar.com.cn/m49989/",
 	}
 
 	if diff := cmp.Diff(exceptedCar, actualCar); diff != "" {

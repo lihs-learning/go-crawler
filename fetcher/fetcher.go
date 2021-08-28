@@ -13,7 +13,11 @@ import (
 	"golang.org/x/text/transform"
 )
 
+// 限速器
+//var rateLimiter = time.Tick(10 * time.Millisecond)
+
 func Fetch(url string) (utf8Content []byte, err error) {
+	//<- rateLimiter
 	client := http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -22,6 +26,7 @@ func Fetch(url string) (utf8Content []byte, err error) {
 	req.Header.Set("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36")
 	resp, err := client.Do(req)
 	if err != nil {
+		log.Printf("client.Do err: %s, when fetching %s", err, url)
 		return nil, err
 	}
 	defer func(resp *http.Response) {

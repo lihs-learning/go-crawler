@@ -2,10 +2,11 @@ package engine
 
 import (
 	"log"
-	"time"
 )
 
-type SimpleEngine struct{}
+type SimpleEngine struct{
+	ItemChan chan interface{}
+}
 
 func (e SimpleEngine) Run(seeds ...Request) {
 	requests := make([]Request, 0, len(seeds))
@@ -24,7 +25,8 @@ func (e SimpleEngine) Run(seeds ...Request) {
 		}
 
 		requests = append(requests, parseResult.Requests...)
-		printItems(parseResult.Items)
-		time.Sleep(300 * time.Millisecond)
+		for _, item := range parseResult.Items {
+			e.ItemChan <- item
+		}
 	}
 }

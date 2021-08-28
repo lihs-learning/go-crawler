@@ -21,29 +21,15 @@ func worker(request Request) (parseResult ParseResult, err error) {
 	return
 }
 
-func printItems(items []interface{}) {
-	for _, item := range items {
-		log.Printf("Got item: %v", item)
-	}
-}
-
 func isDuplicate(url string) bool {
-	cmd := redis.NewStringCmd("CF.EXISTS", "crawler", url)
+	cmd := redis.NewStringCmd("CF.ADDNX", "crawler", url)
 	err := redisc.DB.Process(cmd)
 	if err != nil {
-		log.Println(err)
+		log.Printf("isDuplicate::redisc.DB.Process err: %v, with cmd: \"%s\"", err, cmd)
 	}
 	result, err := cmd.Result()
 	if err != nil {
-		fmt.Println(err)
+		log.Printf("isDuplicate::cmd.Result err: %v", err)
 	}
-	duplicated := result == "1"
-	if !duplicated {
-		cmd := redis.NewStringCmd("CF.ADD", "crawler", url)
-		err := redisc.DB.Process(cmd)
-		if err != nil {
-			fmt.Println(err)
-		}
-	}
-	return duplicated
+	return result == "0"
 }

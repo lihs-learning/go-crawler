@@ -1,10 +1,11 @@
 package parser
 
 import (
-	"github.com/lihs-learning/go-crawler/engine"
-	"github.com/lihs-learning/go-crawler/model"
 	"regexp"
 	"strconv"
+
+	"github.com/lihs-learning/go-crawler/engine"
+	"github.com/lihs-learning/go-crawler/model"
 )
 
 var profileAgeRe = regexp.MustCompile(
@@ -38,12 +39,14 @@ var profileCarRe = regexp.MustCompile(
 //	`http://album.zhenai.com/u/([\d]+)`)
 
 type ProfileParserExtraInfo struct {
-	Name   string
+	ID   string
+	URL  string
+	Name string
 }
 
 func ParseProfile(utf8Content []byte, extraInfo ProfileParserExtraInfo) (result engine.ParseResult) {
 	profile := model.Profile{
-		Name:   extraInfo.Name,
+		Name: extraInfo.Name,
 	}
 
 	age, err := strconv.Atoi(
@@ -74,8 +77,12 @@ func ParseProfile(utf8Content []byte, extraInfo ProfileParserExtraInfo) (result 
 	profile.House = extractString(utf8Content, profileHouseRe)
 	profile.Car = extractString(utf8Content, profileCarRe)
 
-	result.Items = []interface{}{
-		profile,
+	result.Items = []engine.Item{
+		{
+			ID:      extraInfo.ID,
+			URL:     extraInfo.URL,
+			Payload: profile,
+		},
 	}
 
 	return result

@@ -1,8 +1,11 @@
 package engine
 
+import "log"
+
 type ConcurrentEngine struct {
 	Scheduler   Scheduler
 	WorkerCount int
+	Persist Persist
 }
 
 type Scheduler interface {
@@ -25,16 +28,22 @@ func (e *ConcurrentEngine) Run(seeds ...Request) {
 		createWorker(e.Scheduler.WorkerChan(), out, e.Scheduler)
 	}
 
+	invalidSeedNum := 0
 	for _, seed := range seeds {
 		if isDuplicate(seed.URL) {
+			invalidSeedNum++
 			continue
 		}
 		e.Scheduler.Submit(seed)
 	}
+	log.Printf("invlide seed num: %d", invalidSeedNum)
 
 	for {
 		result := <-out
-		printItems(result.Items)
+
+		for _, item := range result.Items {
+			e.Persist.Save(item)
+		}
 
 		for _, request := range result.Requests {
 			if isDuplicate(request.URL) {

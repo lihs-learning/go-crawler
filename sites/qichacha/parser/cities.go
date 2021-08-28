@@ -2,10 +2,10 @@ package parser
 
 import (
 	"fmt"
-	"github.com/lihs-learning/go-crawler/sites/qichacha"
 	"regexp"
 
 	"github.com/lihs-learning/go-crawler/engine"
+	"github.com/lihs-learning/go-crawler/sites/qichacha"
 )
 
 var cityListRegexp = regexp.MustCompile(
@@ -14,7 +14,7 @@ var cityListRegexp = regexp.MustCompile(
 func ParseCityList(utf8content []byte) (result engine.ParseResult) {
 	allCity := cityListRegexp.FindAllSubmatch(utf8content, -1)
 	for _, city := range allCity {
-		result.Items = append(result.Items, string(city[3]))
+		//result.Items = append(result.Items, string(city[3]))
 		result.Requests = append(result.Requests,
 			engine.Request{
 				URL: fmt.Sprintf("%s/gongsi_area.html?prov=%s&city=%s&p=1",
